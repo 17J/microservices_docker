@@ -1,1 +1,230 @@
+---
+apiVersion: apps/v1
+kind: Deployment # Kubernetes resource kind we are creating
+metadata:
+  name: ui-deployment
+spec:
+  selector:
+    matchLabels:
+      app: ui
+  replicas: 2 # Number of replicas that will be created for this deployment
+  template:
+    metadata:
+      labels:
+        app: ui
+    spec:
+      containers:
+        - name: ui
+          image: 17rj/microservice_ui:latest # Image that will be used to containers in the cluster
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080 # The port that the container is running on in the cluster
 
+
+---
+
+apiVersion: v1 # Kubernetes API version
+kind: Service # Kubernetes resource kind we are creating
+metadata: # Metadata of the resource kind we are creating
+  name: ui-ssvc
+spec:
+  selector:
+    app: ui
+  ports:
+    - protocol: "TCP"
+      port: 8080
+      targetPort: 8080
+  type: LoadBalancer # type of the service.
+
+---
+apiVersion: apps/v1
+kind: Deployment # Kubernetes resource kind we are creating
+metadata:
+  name: zull-deployment
+spec:
+  selector:
+    matchLabels:
+      app: zuul
+  replicas: 2 # Number of replicas that will be created for this deployment
+  template:
+    metadata:
+      labels:
+        app: zuul
+    spec:
+      containers:
+        - name: zuul
+          image: 17rj/microservice_zuul:latest # Image that will be used to containers in the cluster
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 9999 # The port that the container is running on in the cluster
+
+
+---
+
+apiVersion: v1 # Kubernetes API version
+kind: Service # Kubernetes resource kind we are creating
+metadata: # Metadata of the resource kind we are creating
+  name: zuul-ssvc
+spec:
+  selector:
+    app: taskmaster
+  ports:
+    - protocol: "TCP"
+      port: 9999
+      targetPort: 9999
+  type: ClusterIP # type of the service.
+
+---
+
+apiVersion: apps/v1
+kind: Deployment # Kubernetes resource kind we are creating
+metadata:
+  name: shoes-deployment
+spec:
+  selector:
+    matchLabels:
+      app: shoes
+  replicas: 1 # Number of replicas that will be created for this deployment
+  template:
+    metadata:
+      labels:
+        app: shoes
+    spec:
+      containers:
+        - name: shoes
+          image: 17rj/microservice_shoes:latest # Image that will be used to containers in the cluster
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 1002 # The port that the container is running on in the cluster
+
+
+---
+
+apiVersion: v1 # Kubernetes API version
+kind: Service # Kubernetes resource kind we are creating
+metadata: # Metadata of the resource kind we are creating
+  name: shoes-ssvc
+spec:
+  selector:
+    app: shoes
+  ports:
+    - protocol: "TCP"
+      port: 1002
+      targetPort: 1002
+  type: ClusterIP # type of the service.
+
+
+---
+
+apiVersion: apps/v1
+kind: Deployment # Kubernetes resource kind we are creating
+metadata:
+  name: offer-deployment
+spec:
+  selector:
+    matchLabels:
+      app: offer
+  replicas: 2 # Number of replicas that will be created for this deployment
+  template:
+    metadata:
+      labels:
+        app: offer
+    spec:
+      containers:
+        - name: offer
+          image: 17rj/microservice_offer:latest # Image that will be used to containers in the cluster
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 1001 # The port that the container is running on in the cluster
+
+
+---
+
+apiVersion: v1 # Kubernetes API version
+kind: Service # Kubernetes resource kind we are creating
+metadata: # Metadata of the resource kind we are creating
+  name: offer-ssvc
+spec:
+  selector:
+    app: offer
+  ports:
+    - protocol: "TCP"
+      port: 1001
+      targetPort: 1001
+  type: ClusterIP # type of the service
+
+---
+
+apiVersion: apps/v1
+kind: Deployment # Kubernetes resource kind we are creating
+metadata:
+  name: cart-deployment
+spec:
+  selector:
+    matchLabels:
+      app: cart
+  replicas: 2 # Number of replicas that will be created for this deployment
+  template:
+    metadata:
+      labels:
+        app: cart
+    spec:
+      containers:
+        - name: cart
+          image: 17rj/microservice_cart:latest # Image that will be used to containers in the cluster
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 1004 # The port that the container is running on in the cluster
+
+
+---
+
+apiVersion: v1 # Kubernetes API version
+kind: Service # Kubernetes resource kind we are creating
+metadata: # Metadata of the resource kind we are creating
+  name: cart-ssvc
+spec:
+  selector:
+    app: cart
+  ports:
+    - protocol: "TCP"
+      port: 1004
+      targetPort: 1004
+  type: ClusterIP # type of the service.
+---
+apiVersion: apps/v1
+kind: Deployment # Kubernetes resource kind we are creating
+metadata:
+  name: wishlist-deployment
+spec:
+  selector:
+    matchLabels:
+      app: wishlist
+  replicas: 2 # Number of replicas that will be created for this deployment
+  template:
+    metadata:
+      labels:
+        app: wishlist
+    spec:
+      containers:
+        - name: wishlist
+          image: 17rj/microservice_wishlist_python:latest # Image that will be used to containers in the cluster
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 1003  # The port that the container is running on in the cluster
+
+
+---
+
+apiVersion: v1 # Kubernetes API version
+kind: Service # Kubernetes resource kind we are creating
+metadata: # Metadata of the resource kind we are creating
+  name: wishlist-ssvc
+spec:
+  selector:
+    app: wishlist
+  ports:
+    - protocol: "TCP"
+      port: 5000
+      targetPort: 1003
+  type: ClusterIP # type of the service.
