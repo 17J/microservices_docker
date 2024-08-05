@@ -1,0 +1,38 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: offers-deployment
+  labels:
+    app: offers
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: offers
+  template:
+    metadata:
+      labels:
+        app: offers
+    spec:
+      containers:
+        - name: offers-microservice
+          image: 17rj/offer-microservice:latest
+          ports:
+            - containerPort: 1001
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: offers-service
+spec:
+  selector:
+    app: offers
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 1001
+      targetPort: 1001
+

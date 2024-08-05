@@ -1,0 +1,38 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wishlist-deployment
+  labels:
+    app: wishlist
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wishlist
+  template:
+    metadata:
+      labels:
+        app: wishlist
+    spec:
+      containers:
+        - name: wishlist-microservice
+          image: 17rj/wish-microservice:latest
+          ports:
+            - containerPort: 1003
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wishlist-service
+spec:
+  selector:
+    app: wishlist
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 1003
+      targetPort: 1003
+
