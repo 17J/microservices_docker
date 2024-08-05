@@ -3,6 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: zuul-deployment
+  namespace: webapps
   labels:
     app: zuul
 spec:
@@ -16,7 +17,7 @@ spec:
         app: zuul
     spec:
       containers:
-        - name: zuul-microservice
+        - name: zuul
           image: 17rj/zuul-microservice:latest
           ports:
             - containerPort: 9999
@@ -30,9 +31,9 @@ metadata:
 spec:
   selector:
     app: zuul
-  type: NodePort
   ports:
     - protocol: TCP
       port: 9999
       targetPort: 9999
+  type: LoadBalancer
 

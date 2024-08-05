@@ -3,6 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ui-deployment
+  namespace: webapps
   labels:
     app: ui
 spec:
@@ -16,8 +17,9 @@ spec:
         app: ui
     spec:
       containers:
-        - name: ui-microservice
+        - name: ui
           image: 17rj/ui-microservice:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
 
@@ -30,9 +32,8 @@ metadata:
 spec:
   selector:
     app: ui
-  type: LoadBalancer
   ports:
     - protocol: TCP
-      port: 8080
+      port: 8070
       targetPort: 8080
-
+  type: LoadBalancer

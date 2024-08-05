@@ -3,6 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: wishlist-deployment
+  namespace: webapps
   labels:
     app: wishlist
 spec:
@@ -27,6 +28,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: wishlist-service
+  namespace: webapps
 spec:
   selector:
     app: wishlist
