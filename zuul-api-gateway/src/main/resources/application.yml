@@ -4,7 +4,7 @@ zuul:
   routes:
     offer:
       path: /offer/**
-      url: http://offer-service:1001/api/v1
+      url: http://offers-service:1001/api/v1
     shoe:
       path: /shoe/**
       url: http://shoe-service:1002/api/v1
