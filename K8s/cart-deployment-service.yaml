@@ -30,8 +30,8 @@ metadata:
 spec:
   selector:
     app: cart
-  type: ClusterIP
   ports:
     - protocol: TCP
       port: 1004
       targetPort: 1004
+  type: ClusterIP
